@@ -1,5 +1,33 @@
 from app import db
 from datetime import datetime
+class PnMap(db.Model):
+    __tablename__ = 'pnmap'
+
+    id = db.Column(db.Integer, primary_key=True)
+    pn = db.Column(db.String(100), nullable=False)
+    biosv = db.Column(db.String(100), nullable=False)
+    prefix = db.Column(db.String(20), nullable=False)
+    net = db.Column(db.Integer, nullable=False)
+    poe = db.Column(db.Integer, nullable=False)
+    ign = db.Column(db.Integer, nullable=False)
+    sop = db.Column(db.String(100), nullable=True)
+    packpoints = db.Column(db.Integer, nullable=True)
+    buildpoints = db.Column(db.Integer, nullable=True)
+    customized  = db.Column(db.Integer, nullable=True)
+    
+    def __init__(self, pn, biosv,prefix, net, poe, ign, sop, packpoints, buildpoints, customized):
+        self.pn = pn
+        self.biosv = biosv
+        self.pn = pn
+        self.prefix = prefix
+        self.net = net
+        self.poe = poe
+        self.ign = ign
+        self.sop = sop
+        self.packpoints = packpoints
+        self.buildpoints = buildpoints
+        self.customized = customized
+        
 
 class WorkOrder(db.Model):
     __tablename__ = 'workorder'
@@ -9,12 +37,16 @@ class WorkOrder(db.Model):
     customers = db.Column(db.String(100), nullable=False)
     pn = db.Column(db.String(100), nullable=False)
     csn = db.Column(db.String(100), nullable=False)
+    cputype =  db.Column(db.String(100), nullable=True)
+    memorysize =  db.Column(db.String(100), nullable=True)
+    disksize =  db.Column(db.String(100), nullable=True)
     cpuinstall = db.Column(db.Boolean, nullable=True)
     memoryinstall = db.Column(db.Boolean, nullable=True)
     gpuinstall = db.Column(db.Boolean, nullable=True)
     wifiinstall = db.Column(db.Boolean, nullable=True)
     caninstall = db.Column(db.Boolean, nullable=True)
     mezioinstall = db.Column(db.Boolean, nullable=True)
+    fg5ginstall = db.Column(db.Boolean, nullable=True)
     osinstall = db.Column(db.String(40), nullable=True)
     packgo = db.Column(db.Boolean, nullable=True)
     asid = db.Column(db.Integer, nullable=True)
@@ -25,18 +57,23 @@ class WorkOrder(db.Model):
     status =db.Column(db.Integer, nullable=True)
     csid=db.Column(db.Integer, nullable=True)
     cstime=db.Column(db.DateTime, nullable=True)
+    ldtime=db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, wo, customers, pn, csn, cpuinstall, memoryinstall, gpuinstall,  wifiinstall, caninstall, mezioinstall, osinstall, packgo, asid, insid,astime, intime, csid, cstime, tktime, status):
+    def __init__(self, wo, customers, pn, csn, cputype, memorysize, disksize, cpuinstall, memoryinstall, gpuinstall,  wifiinstall, caninstall, mezioinstall, fg5ginstall, osinstall, packgo, asid, insid,astime, intime, csid, cstime, tktime, ldtime, status):
         self.wo = wo
         self.customers = customers
         self.pn = pn
         self.csn = csn
+        self.cputype = cputype
+        self.memorysize = memorysize
+        self.disksize = disksize
         self.cpuinstall = cpuinstall
         self.memoryinstall = memoryinstall
         self.gpuinstall = gpuinstall
         self.wifiinstall = wifiinstall
         self.caninstall = caninstall
         self.mezioinstall = mezioinstall
+        self.fg5ginstall = fg5ginstall
         self.osinstall = osinstall
         self.packgo = packgo
         self.asid = asid
@@ -46,6 +83,7 @@ class WorkOrder(db.Model):
         self.intime = intime
         self.csid = csid
         self.cstime = cstime
+        self.ldtime = ldtime
         self.status = status
 
     def __repr__(self):
